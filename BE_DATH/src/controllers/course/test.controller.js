@@ -1,5 +1,5 @@
 const { Test, User, Question, Course } = require('../../sequelize');
-const sequelize = require('../../database/config/config.json');
+const sequelize = require('sequelize');
 
 const TestController = {
     async generateTest(req, res) {
