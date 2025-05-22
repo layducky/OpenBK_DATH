@@ -1,14 +1,8 @@
-const {Model, DataTypes} = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-module.exports = (sequelize) => {
-    class Test extends Model {
-        static associate(models) {
-            this.belongsTo(models.Course, {foreignKey: 'courseID', as: 'course'});
-            this.belongsTo(models.User, {foreignKey: 'userID', as: 'user'});
-        }
-    }
+module.exports = (sequelize, DataTypes) => {
 
-    Test.init({
+    return sequelize.define("Test", {
         testID: {
             type: DataTypes.UUID,
             primaryKey: true,
@@ -53,8 +47,7 @@ module.exports = (sequelize) => {
             allowNull:false
         },
     }, {
-        sequelize,
         modelName: 'Test',
+        tableName: 'Test',
     });
-    return Test;
 };

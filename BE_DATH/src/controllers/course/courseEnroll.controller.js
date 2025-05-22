@@ -1,6 +1,4 @@
-const { User, Participate, Course } = require('../../database/models');
-const { Sequelize } = require('sequelize');
-const { use } = require('../../routes');
+const { User, Participate, Course } = require('../../sequelize');
 
 
 const courseEnroll = {

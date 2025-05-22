@@ -1,7 +1,5 @@
-const { where } = require('sequelize')
 const checkNull = require('../../common/ultis')
-const DB = require('../../database/models')
-const contQuestion = DB.contQuestion
+const { contQuestion } = require('../../sequelize')
 
 //send question
 const uploadQuestion = async(req, res) => {

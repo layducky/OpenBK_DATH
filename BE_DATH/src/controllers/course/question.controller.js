@@ -1,4 +1,4 @@
-const { Unit, Question } = require('../../database/models');
+const { Unit, Question } = require('../../sequelize');
 const { generateQuestionID } = require('../../utils/generateID');
 const {filterNull, checkNull} = require('../../common/ultis');
 

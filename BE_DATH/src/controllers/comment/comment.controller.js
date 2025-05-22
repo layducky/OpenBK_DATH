@@ -1,4 +1,4 @@
-const { Comment } = require('../../database/models');
+const { Comment } = require('../../sequelize');
 // const { param } = require('../../routes/auth.route');
 
 const createComment = async (req, res) => {

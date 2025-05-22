@@ -1,6 +1,5 @@
 // controllers/authController.js
-const DB = require('../../database/models')
-const User = DB.User
+const { User } = require("../../sequelize");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { generateLearnerID } = require('../../utils/generateID')
@@ -10,6 +9,7 @@ const { generateLearnerID } = require('../../utils/generateID')
 const signUp = async (req, res) => {
    try {
       const { name, email, password } = req.body
+
       const userID = generateLearnerID()
       const imageUrl = "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
 

@@ -1,14 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-module.exports = (sequelize) => {
-  class Unit extends Model {
-    static associate(models) {
-      this.belongsTo(models.Course, { foreignKey: 'courseID', as: 'course_units', onDelete: 'CASCADE' });
-      this.hasMany(models.Question, { foreignKey: 'unitID', as: 'unit_questions' });
-    }
-  }
-
-  Unit.init({
+module.exports = (sequelize, DataTypes) => {
+  return sequelize.define("Unit", {
     unitID: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -40,14 +33,13 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   }, {
-    sequelize,
     modelName: 'Unit',
+    tableName: 'Units',
     indexes: [{
       unique: true,
       fields: ['courseID', 'numericalOrder'],
       msg: 'Unit with this order already exists.',
-    }]
+    }],
+    timestamps: true,
   });
-
-  return Unit;
 };

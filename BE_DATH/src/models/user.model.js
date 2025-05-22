@@ -1,20 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
-module.exports = (sequelize) => {
-  class User extends Model {
-    static associate(models) {
-      this.belongsToMany(models.Course, {
-        through: models.Participate,
-        foreignKey: 'learnerID',
-        as: 'learnerInfo',
-      });
-      this.hasMany(models.Course, {
-        foreignKey: 'authorID',
-        as: 'authorInfo',         
-      });
-    }
-
-  }
-  User.init({
+const { Sequelize } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  return sequelize.define("User", {
     userID: {
       type: DataTypes.STRING,
       unique: true,
@@ -50,10 +36,9 @@ module.exports = (sequelize) => {
     },
 
   }, {
-    sequelize,
     modelName: 'User',
+    tableName: 'User',
+    timestamps: true, 
   });
-
-  return User;
 };
 

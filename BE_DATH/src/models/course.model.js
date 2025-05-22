@@ -1,25 +1,8 @@
 'use strict';
-const { Model  } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Course extends Model {
-    static associate(models) {
-      this.hasMany(models.Unit, { foreignKey: 'courseID', as: 'course_units' });
-      this.hasOne(models.Preview, { foreignKey: 'userID', as: 'preview' });
-      this.belongsToMany(models.User, {
-        through: models.Participate,
-        foreignKey: 'courseID',
-        as: 'courseInfo',
-      });
-      this.belongsTo(models.User, {
-        foreignKey: 'authorID',
-        as: 'authorInfo',
-        onDelete: 'CASCADE',
-      });
-    }
-  }
-
-  Course.init({
+  return sequelize.define("Course", {
     courseID: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -55,9 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
-    sequelize,
     modelName: 'Course',
+    tableName: 'Course',
   });
-
-  return Course;
 }

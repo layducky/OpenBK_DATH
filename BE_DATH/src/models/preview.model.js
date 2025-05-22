@@ -1,13 +1,8 @@
-const { Model, DataTypes } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-module.exports = (sequelize) => {
-  class Preview extends Model {
-    static associate(models) {
-      this.belongsTo(models.Course, { foreignKey: 'courseID', as: 'course'});
-    }
-  }
+module.exports = (sequelize, DataTypes) => {
 
-  Preview.init({
+  return sequelize.define("Preview", {
     previewId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -34,9 +29,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   }, {
-    sequelize,
     modelName: 'Preview',
+    tableName: 'Preview',
   });
-
-  return Preview
 };

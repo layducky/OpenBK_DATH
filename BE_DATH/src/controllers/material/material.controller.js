@@ -1,4 +1,4 @@
-const DB = require('../../database/models')
+const DB = require('../../sequelize')
 const Material = DB.Material
 const mime = import('mime'); // Dynamic import//package to determine the file's MIME type dynamically based on its extension
 //add

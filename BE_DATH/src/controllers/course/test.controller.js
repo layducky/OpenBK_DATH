@@ -1,4 +1,4 @@
-const { Test, User, Question, Course } = require('../../database/models');
+const { Test, User, Question, Course } = require('../../sequelize');
 const sequelize = require('../../database/config/config.json');
 
 const TestController = {

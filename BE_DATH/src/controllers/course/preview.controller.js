@@ -1,4 +1,4 @@
-const { Preview } = require('../../database/models');
+const { Preview } = require('../../sequelize');
 
 const PreviewController = {
     async createPreviewForID(req, res) {

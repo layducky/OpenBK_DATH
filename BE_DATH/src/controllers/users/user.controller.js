@@ -1,4 +1,4 @@
-const { User, Course } = require('../../database/models')
+const { User, Course } = require('../../sequelize')
 const bcrypt = require('bcrypt')
 const { deleteCourse } = require('../course/course.controller')
 const { generateCollabID } = require('../../utils/generateID')
