@@ -1,13 +1,11 @@
 'use client'
 
-import { BulletItem } from '@/components/ui/bulletItem';
-import { ButtonClick } from '@/components/common/buttons/button';
 import * as React from 'react'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCourseData } from '@/hooks/useCourseData';
 import { CourseInfoBar } from '@/components/ui/infoBar';
-
+import { ReviewCourseCard } from '@/components/common/cards/reviewCourseCard';
 
 const Tab: React.FC<{
     label: string,
@@ -53,17 +51,6 @@ export default function CourseLayout({
         }, [params]);
 
         const {data: courseData} = useCourseData(courseID as string);
-    
-        
-        const courseFeatures = [
-            { type: "video", text: '95 hours on-demand video' },
-            { type: "article", text: '35 articles' },
-            { type: "test", text: '2 practice tests' },
-            { type: "test", text: 'Assignments' },
-            { type: "download", text: '100 downloadble resources' },
-            { type: "infinity", text: 'Full lifetime access' },
-            { type: "certificate", text: 'Certificate of completion' }
-          ]
 
         //*Pathname
         const tabs = [
@@ -74,51 +61,34 @@ export default function CourseLayout({
         ];
         const currentRoute: string = usePathname();
         return (
-            <main>
-                <div role="top" className="flex flex-col relative py-5 pl-24 w-full bg-indigo-50 max-md:pl-5 max-md:max-w-full">
+            <main className='min-h-screen grid grid-cols-1 md:grid-cols-10'>
+                <div className='col-span-1 md:col-span-8 p-2'>
                     {courseData && <CourseInfoBar courseData={courseData}/>}
-                    
-                    <div id="side" className="flex shadow-lg absolute right-[160px] top-0 bg-white flex-col mx-auto w-full text-black max-w-[360px]">
-                        <img
-                            loading="lazy"
-                            src={courseData?.imageUrl}
-                            alt="Course preview"
-                            className="object-contain w-full rounded-md aspect-[1.38]"
-                        />
-                        <section className="flex flex-col px-2.5 py-4 w-full text-base">
-                            <h2 className="font-bold">This course includes:</h2>
-                            <div className="flex flex-col items-start mt-2.5 w-full">
-                                {courseFeatures.map((item, index) => (
-                                    <BulletItem key={index} {...item}/>
-                                ))} 
-                            </div>
-                        </section>
-                        <section className="flex flex-col pt-2.5 w-full text-sm font-semibold">
-                            <div className="flex justify-center items-center px-2.5 w-full">
-                                <div className="flex pb-6 items-start self-stretch my-auto w-[223px]">
-                                    <ButtonClick 
-                                        courseID={courseID} 
-                                        className="w-[200px]">Enroll now</ButtonClick>
-                                </div>
-                            </div>
-                        </section>
+                    <div className="md:hidden">
+                        <ReviewCourseCard courseID={courseID || ''} />
+                    </div>
+
+                    <div
+                        className="flex flex-wrap gap-4 items-center px-24 py-4 max-w-full text-base text-center text-black max-md:px-5 ">
+                        {tabs.map((tab, index) => (
+                            <Tab
+                                key={index}
+                                label={tab.label}
+                                ref={tab.href}
+                                isActive= {currentRoute === tab.href}
+                            />
+
+                        ))}
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <div className="p-4 px-12 rounded-xl border border-solid border-black border-opacity-30 w-full">
+                            {children }
+                        </div>
                     </div>
                 </div>
-                <div
-                    role="tablist"
-                    className="flex flex-wrap gap-4 items-center px-24 pt-4 pb-1.5 
-                 max-w-full text-base text-center text-black w-[875px] max-md:px-5">
-                    {tabs.map((tab, index) => (
-                        <Tab
-                            key={index}
-                            label={tab.label}
-                            ref={tab.href}
-                            isActive= {currentRoute === tab.href}
-                        />
-
-                    ))}
-                </div>
-                {children }
+                <aside className='hidden md:block col-span-1 md:col-span-2 p-2'>
+                    <ReviewCourseCard courseID={courseID || ''} />
+                </aside>
             </main>
         )
     }
